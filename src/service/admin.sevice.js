@@ -12,6 +12,18 @@ class AdminService {
     return admin;
   }
 
+  async changePassword(adminId, oldPassword, newPassword) {
+    const admin = await Admin.findById(adminId);
+    if (!admin) throw new ApiError(404, "Admin not found");
+
+    const isMatch = await admin.comparePassword(oldPassword);
+    if (!isMatch) throw new ApiError(401, "Incorrect old password");
+
+    admin.password = newPassword;
+    await admin.save();
+    return { message: "Password updated successfully" };
+  }
+
   
 }
 export default new AdminService();

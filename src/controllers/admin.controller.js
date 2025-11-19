@@ -35,6 +35,17 @@ class AdminController {
     );
   });
 
+  changePassword = asyncHandler(async (req, res, next) => {
+    const { oldPassword, newPassword } = req.body;
+    const adminId = req.user._id;
+
+    if (!oldPassword || !newPassword) {
+      throw new ApiError(400, "Old and new passwords are required");
+    }
+
+    const result = await AdminSevice.changePassword(adminId, oldPassword, newPassword);
+    res.status(200).json(new ApiResponse(200, result.message));
+  });
   
 }
 
