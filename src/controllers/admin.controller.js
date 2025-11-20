@@ -47,6 +47,18 @@ class AdminController {
     res.status(200).json(new ApiResponse(200, result.message));
   });
   
+  
+  changeEmail = asyncHandler(async (req, res, next) => {
+    const { password, newEmail } = req.body;
+    const adminId = req.user._id;
+
+    if (!password || !newEmail) {
+      throw new ApiError(400, "Password and new email are required");
+    }
+
+    const result = await AdminSevice.changeEmail(adminId, password, newEmail);
+    res.status(200).json(new ApiResponse(200, result.message));
+  });
 }
 
 export default new AdminController();

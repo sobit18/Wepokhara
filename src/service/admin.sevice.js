@@ -24,6 +24,21 @@ class AdminService {
     return { message: "Password updated successfully" };
   }
 
+   async changeEmail(adminId, password, newEmail) {
+    const admin = await Admin.findById(adminId);
+    if (!admin) throw new ApiError(404, "Admin not found");
+
+    const isMatch = await admin.comparePassword(password);
+    if (!isMatch) throw new ApiError(401, "Incorrect password");
+
+    const existingAdmin = await Admin.findOne({ email: newEmail });
+    if (existingAdmin) throw new ApiError(400, "Email already in use");
+
+    admin.email = newEmail;
+    await admin.save();
+    return { message: "Email updated successfully" };
+  }
+
   
 }
 export default new AdminService();
