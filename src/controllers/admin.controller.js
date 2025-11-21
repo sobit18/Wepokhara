@@ -59,6 +59,12 @@ class AdminController {
     const result = await AdminSevice.changeEmail(adminId, password, newEmail);
     res.status(200).json(new ApiResponse(200, result.message));
   });
+
+  logout = asyncHandler(async (req, res, next) => {
+    res.clearCookie("authToken", options);
+    res.clearCookie("refreshToken", options);
+    res.status(200).json(new ApiResponse(200, "Admin logged out successfully"));
+  });
 }
 
 export default new AdminController();
