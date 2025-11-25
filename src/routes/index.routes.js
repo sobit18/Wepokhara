@@ -3,10 +3,11 @@ import express from "express";
 const router = express.Router();
 
 import adminRouter from "./Admin.route.js"
-// import customerRouter from "./Customer.route.js"
+import customerRouter from "./Customer.route.js"
 // import vendorRouter from "./Vendor.route.js"
 
 router.use("/admin",adminRouter)
+router.use("/customer",customerRouter)
 
 
 
