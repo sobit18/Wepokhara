@@ -15,5 +15,14 @@ router.post(
   CustomerController.registerUser
 );
 
+router.post(
+  "/verifyotp",
+  body("email").isEmail().withMessage("email doesnot have valid address"),
+  body("otp")
+    .isLength({ min: 6, max: 6 })
+    .withMessage("otp must be of 6 digits"),
+  CustomerController.verifyOtp
+);
+
 
 export default router;
