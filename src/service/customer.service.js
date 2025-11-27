@@ -57,6 +57,27 @@ class CustomerService {
     });
     return { message: "OTP sent to your email", email };
   }
+  async verifyOtp({ email, otp }) {
+    if (!email || !otp) throw new ApiError(400, "Email and OTP are required");
+
+    const user = await User.findOne({ email, isVerifiedEmail: false });
+    if (!user) throw new ApiError(404, "User not found");
+
+    const otpHash = crypto.createHash("sha256").update(otp).digest("hex");
+    console.log("otpHash is", otpHash);
+
+    const otps = await Otp.findOne({ otpHash });
+
+    if (!otps?.otpHash) {
+      throw new ApiError(400, "Invalid or expired OTP");
+    }
+
+    user.isVerifiedEmail = true;
+    await Otp.findOneAndDelete({ otpHash });
+    await user.save();
+
+    return { message: "Email verified successfully" };
+  }
 
  
 }
