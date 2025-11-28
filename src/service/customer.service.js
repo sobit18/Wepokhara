@@ -78,6 +78,18 @@ class CustomerService {
 
     return { message: "Email verified successfully" };
   }
+    async login({ email, password }) {
+    const user = await User.findOne({ email });
+    if (!user || !(await user.comparePassword(password))) {
+      throw new ApiError(400, "Invalid credentials");
+    }
+    if (user && !user.isVerifiedEmail) {
+      throw new ApiError(404, "email is not verified");
+    }
+    const token = await user?.generateAuthToken();
+    const refreshToken = await user?.generateRefreshToken();
+    return { authToken: token, refreshToken, role: user?.role };
+  }
 
  
 }

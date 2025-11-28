@@ -23,6 +23,14 @@ router.post(
     .withMessage("otp must be of 6 digits"),
   CustomerController.verifyOtp
 );
+router.post(
+  "/loginuser",
+  body("email").isEmail().withMessage("valid email address is required"),
+  body("password")
+    .isLength({ min: 5 })
+    .withMessage("password must be atleast 5 charcater"),
+  CustomerController.loginUser
+);
 
 
 export default router;

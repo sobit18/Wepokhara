@@ -30,6 +30,16 @@ class CustomerController {
       .json(new ApiResponse(200, "email verified successfully", result));
   });
 
+  loginUser = asyncHandler(async (req, res, next) => {
+    const errors =validationResult(req)
+    if(!errors.isEmpty()){
+        return next(new ApiError(400,"invalid email or password"))
+    }
+    const result = await CustomerService.login(req.body);
+    res.cookie("authToken", result.authToken, options);
+    res.cookie("refreshToken", result.refreshToken, options);
+    res.status(200).json(new ApiResponse(200, "user login successfully"));
+  });
  
 }
 export default new CustomerController();
