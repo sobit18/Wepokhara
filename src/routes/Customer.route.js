@@ -32,5 +32,10 @@ router.post(
   CustomerController.loginUser
 );
 
+router.post(
+  "/forgetpassword",
+  body("email").isEmail().withMessage("email is required"),
+  CustomerController.forgetPassword
+);
 
 export default router;

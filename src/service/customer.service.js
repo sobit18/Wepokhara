@@ -91,6 +91,52 @@ class CustomerService {
     return { authToken: token, refreshToken, role: user?.role };
   }
 
+  async forgetPassword({ email }) {
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new ApiError(400, "User not found");
+    }
+
+    const resetToken = crypto.randomBytes(20).toString("hex");
+    console.log("resetToken is", resetToken);
+
+    const hashedToken = crypto
+      .createHash("sha256")
+      .update(resetToken)
+      .digest("hex");
+
+    user.resetPasswordToken = hashedToken;
+    user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 mins
+    console.log("hashed token is", hashedToken);
+    await user.save();
+    console.log("saved user", user);
+
+    const resetUrl = `${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: '"EVENT MANAGEMENT" <sobitshakya5@gmail.com>',
+      to: email,
+      subject: "Verify your email",
+      html: `
+       <p>Hello ${user.fullName},</p>
+        <p>You requested to reset your password.</p>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
+        <p>This link will expire in 15 minutes.</p>
+      `,
+    });
+
+    return { message: "password reset link sent to email" };
+  }
+
  
 }
 export default new CustomerService();

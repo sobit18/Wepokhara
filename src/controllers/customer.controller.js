@@ -41,5 +41,14 @@ class CustomerController {
     res.status(200).json(new ApiResponse(200, "user login successfully"));
   });
  
+   forgetPassword = asyncHandler(async (req, res, next) => {
+    const errors =validationResult(req)
+    if(!errors.isEmpty){
+        return next(new ApiError(400,"email is required"))
+    }
+    const result = await CustomerService.forgetPassword(req.body);
+
+    res.status(200).json(new ApiResponse(200, "email sent ", result));
+  });
 }
 export default new CustomerController();
