@@ -136,6 +136,25 @@ class CustomerService {
 
     return { message: "password reset link sent to email" };
   }
+   async resetPassword({ token, password }) {
+    console.log("entered token is", token);
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+    console.log("token sfter hashed", hashedToken);
+
+    const user = await User.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+    if (!user) {
+      throw new ApiError(400, "invalid or expire token");
+    }
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+    await user.save();
+
+    return { message: "Password reset successfully" };
+  }
 
  
 }

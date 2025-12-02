@@ -38,4 +38,13 @@ router.post(
   CustomerController.forgetPassword
 );
 
+router.post(
+  "/resetpassword/:token",
+  param("token").notEmpty().withMessage("token is required"),
+  body("password")
+    .isLength({ min: 5 })
+    .withMessage("password must be atleat 5 character"),
+  CustomerController.resetPassword
+);
+
 export default router;
