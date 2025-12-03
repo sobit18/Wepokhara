@@ -47,4 +47,10 @@ router.post(
   CustomerController.resetPassword
 );
 
+router.put(
+  "/updateprofile",
+  verifyToken,
+  CustomerController.updateProfile
+);
+
 export default router;

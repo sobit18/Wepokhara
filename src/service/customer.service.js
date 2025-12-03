@@ -156,6 +156,35 @@ class CustomerService {
     return { message: "Password reset successfully" };
   }
 
+  async updateProfile(userId, { phone, school, ward, job }) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    if (phone) user.phone = phone;
+    if (school) user.school = school;
+    if (ward) user.ward = ward;
+    if (job) user.job = job;
+
+    await user.save();
+
+    return {
+      message: "Profile updated successfully",
+      user: {
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        phone: user.phone,
+        school: user.school,
+        ward: user.ward,
+        job: user.job,
+        role: user.role,
+        isVerifiedEmail: user.isVerifiedEmail,
+      },
+    };
+  }
+
  
 }
 export default new CustomerService();
