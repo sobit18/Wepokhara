@@ -185,6 +185,18 @@ class CustomerService {
     };
   }
 
+   async deleteAccount(userId) {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
+
+    await Otp.deleteMany({ userId: user._id });
+    await User.findByIdAndDelete(userId);
+
+    return { message: "User account deleted successfully" };
+  }
+
  
 }
 export default new CustomerService();

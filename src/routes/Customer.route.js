@@ -53,4 +53,10 @@ router.put(
   CustomerController.updateProfile
 );
 
+router.delete(
+  "/deleteaccount",
+  verifyToken,
+  CustomerController.deleteAccount
+);
+
 export default router;
