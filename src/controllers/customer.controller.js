@@ -74,5 +74,11 @@ class CustomerController {
     const result = await CustomerService.deleteAccount(userId);
     res.status(200).json(new ApiResponse(200, "User account deleted successfully", result));
   });
+
+   logoutUser = asyncHandler(async (req, res, next) => {
+    res.clearCookie("authToken", options);
+    res.clearCookie("refreshToken", options);
+    res.status(200).json(new ApiResponse(200, "User logged out successfully"));
+  });
 }
 export default new CustomerController();

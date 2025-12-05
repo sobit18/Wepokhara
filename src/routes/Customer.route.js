@@ -59,4 +59,6 @@ router.delete(
   CustomerController.deleteAccount
 );
 
+router.post("/logout", verifyToken, CustomerController.logoutUser);
+
 export default router;
