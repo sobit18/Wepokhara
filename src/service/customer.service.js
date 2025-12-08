@@ -197,6 +197,11 @@ class CustomerService {
     return { message: "User account deleted successfully" };
   }
 
- 
+  async getUsersByJob(job) {
+    const users = await User.find({ job: { $regex: new RegExp(job, "i") } }).select(
+      "fullName email phone school ward job profilePicture"
+    );
+    return users;
+  }
 }
 export default new CustomerService();

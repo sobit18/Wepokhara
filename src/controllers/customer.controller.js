@@ -80,5 +80,14 @@ class CustomerController {
     res.clearCookie("refreshToken", options);
     res.status(200).json(new ApiResponse(200, "User logged out successfully"));
   });
+
+   getUsersByJob = asyncHandler(async (req, res, next) => {
+    const { job } = req.params;
+    if (!job) {
+      throw new ApiError(400, "Job title is required");
+    }
+    const users = await CustomerService.getUsersByJob(job);
+    res.status(200).json(new ApiResponse(200, "Users fetched successfully", users));
+  });
 }
 export default new CustomerController();

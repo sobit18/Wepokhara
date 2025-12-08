@@ -61,4 +61,6 @@ router.delete(
 
 router.post("/logout", verifyToken, CustomerController.logoutUser);
 
+router.get("/getusersbyjob/:job", CustomerController.getUsersByJob);
+
 export default router;
