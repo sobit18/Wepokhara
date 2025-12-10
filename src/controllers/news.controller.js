@@ -1,0 +1,15 @@
+import { createNews, getAllNews, getNewsByCategory, updateNews, deleteNews, getNewsByWard } from "../services/news.service.js";
+
+export const createNewsController = async (req, res) => {
+  try {
+    const { title, content, category, ward, userId } = req.body;
+    const image = req.file ? req.file.path : null;
+
+    const news = await createNews({ title, content, category, image, ward, userId });
+    res.status(201).json({ message: "News created successfully", news });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
