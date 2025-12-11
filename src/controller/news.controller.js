@@ -13,3 +13,11 @@ export const createNewsController = async (req, res) => {
 };
 
 
+export const getAllNewsController = async (req, res) => {
+  try {
+    const news = await getAllNews();
+    res.status(200).json(news);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

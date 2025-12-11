@@ -1,5 +1,5 @@
 import express from "express";
-import CustomerController from "../controllers/customer.controller.js";
+import CustomerController from "../controller/customer.controller.js";
 
 import { body, param } from "express-validator";
 import { verifyToken } from "../middleware/verifyToken.middleware.js";
@@ -12,7 +12,7 @@ router.post(
     .withMessage("name sould be atleast 3 character"),
   body("email").isEmail().withMessage("email doesnot have valid address"),
   body("password").isLength({ min: 5 }),
-  CustomerController.registerUser
+  CustomerController.registerUser,
 );
 
 router.post(
@@ -21,7 +21,7 @@ router.post(
   body("otp")
     .isLength({ min: 6, max: 6 })
     .withMessage("otp must be of 6 digits"),
-  CustomerController.verifyOtp
+  CustomerController.verifyOtp,
 );
 router.post(
   "/loginuser",
@@ -29,13 +29,13 @@ router.post(
   body("password")
     .isLength({ min: 5 })
     .withMessage("password must be atleast 5 charcater"),
-  CustomerController.loginUser
+  CustomerController.loginUser,
 );
 
 router.post(
   "/forgetpassword",
   body("email").isEmail().withMessage("email is required"),
-  CustomerController.forgetPassword
+  CustomerController.forgetPassword,
 );
 
 router.post(
@@ -44,20 +44,12 @@ router.post(
   body("password")
     .isLength({ min: 5 })
     .withMessage("password must be atleat 5 character"),
-  CustomerController.resetPassword
+  CustomerController.resetPassword,
 );
 
-router.put(
-  "/updateprofile",
-  verifyToken,
-  CustomerController.updateProfile
-);
+router.put("/updateprofile", verifyToken, CustomerController.updateProfile);
 
-router.delete(
-  "/deleteaccount",
-  verifyToken,
-  CustomerController.deleteAccount
-);
+router.delete("/deleteaccount", verifyToken, CustomerController.deleteAccount);
 
 router.post("/logout", verifyToken, CustomerController.logoutUser);
 
