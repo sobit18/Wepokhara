@@ -7,3 +7,8 @@ export const createNews = async (data) => {
 export const getAllNews = async () => {
   return await News.find().sort({ createdAt: -1 });
 };
+
+
+export const getNewsByCategory = async (category) => {
+  return await News.find({ category }).sort({ createdAt: -1 });
+};

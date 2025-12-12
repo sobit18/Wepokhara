@@ -21,3 +21,14 @@ export const getAllNewsController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const getNewsByCategoryController = async (req, res) => {
+  try {
+    const { category } = req.params;
+    const news = await getNewsByCategory(category);
+    res.status(200).json(news);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
