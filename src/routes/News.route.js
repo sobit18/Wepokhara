@@ -7,5 +7,6 @@ const router = express.Router();
 router.post("/", upload.single("image"), createNewsController);
 router.get("/", getAllNewsController);
 router.get("/category/:category", getNewsByCategoryController);
+router.get("/ward/:ward", getNewsByWardController);
 
 export default router;
