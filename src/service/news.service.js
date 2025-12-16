@@ -16,3 +16,7 @@ export const getNewsByCategory = async (category) => {
 export const getNewsByWard = async (ward) => {
   return await News.find({ ward }).sort({ createdAt: -1 });
 };
+
+export const updateNews = async (id, data) => {
+  return await News.findByIdAndUpdate(id, data, { new: true });
+};

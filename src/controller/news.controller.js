@@ -41,3 +41,24 @@ export const getNewsByWardController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const updateNewsController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content, category, ward, userId } = req.body;
+    let updateData = { title, content, category, ward, userId };
+
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
+
+    const updatedNews = await updateNews(id, updateData);
+    if (!updatedNews) {
+      return res.status(404).json({ message: "News not found" });
+    }
+    res.status(200).json({ message: "News updated successfully", news: updatedNews });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
