@@ -9,5 +9,6 @@ router.get("/", getAllNewsController);
 router.get("/category/:category", getNewsByCategoryController);
 router.get("/ward/:ward", getNewsByWardController);
 router.put("/:id", upload.single("image"), updateNewsController);
+router.delete("/:id", deleteNewsController);
 
 export default router;

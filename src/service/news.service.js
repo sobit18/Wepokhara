@@ -20,3 +20,7 @@ export const getNewsByWard = async (ward) => {
 export const updateNews = async (id, data) => {
   return await News.findByIdAndUpdate(id, data, { new: true });
 };
+
+export const deleteNews = async (id) => {
+  return await News.findByIdAndDelete(id);
+};
