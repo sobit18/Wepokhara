@@ -22,4 +22,13 @@ export const createEventController = async (req, res) => {
   }
 };
 
+export const getPendingEventsController = async (req, res) => {
+  try {
+    const events = await getEventsByStatus("pending");
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 

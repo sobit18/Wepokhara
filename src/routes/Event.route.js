@@ -5,6 +5,7 @@ import { upload } from "../middleware/multerConfig.js";
 const router = express.Router();
 
 router.post("/", upload.single("image"), createEventController);
+router.get("/pending", getPendingEventsController);
 
 
 export default router;
