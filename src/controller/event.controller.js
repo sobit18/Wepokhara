@@ -30,5 +30,13 @@ export const getPendingEventsController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getApprovedEventsController = async (req, res) => {
+  try {
+    const events = await getEventsByStatus("approved");
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 
