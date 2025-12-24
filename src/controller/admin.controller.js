@@ -1,7 +1,7 @@
 import ApiError from "../utils/ApiError.utils.js";
 import ApiResponse from "../utils/apiResponse.utils.js";
 import asyncHandler from "../utils/asyncHandler.utils.js";
-import AdminSevice from "../service/Admin.sevice.js";
+import AdminSevice from "../service/admin.service.js";
 import { options } from "../config/cookie.config.js";
 
 

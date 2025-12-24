@@ -39,4 +39,14 @@ export const getApprovedEventsController = async (req, res) => {
   }
 };
 
+export const getEventsByWardController = async (req, res) => {
+  try {
+    const { ward } = req.params;
+    const events = await getEventsByWard(ward);
+    res.status(200).json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 

@@ -7,6 +7,7 @@ const router = express.Router();
 router.post("/", upload.single("image"), createEventController);
 router.get("/pending", getPendingEventsController);
 router.get("/approved", getApprovedEventsController);
+router.get("/ward/:ward", getEventsByWardController);
 
 
 export default router;
