@@ -8,6 +8,8 @@ router.post("/", upload.single("image"), createEventController);
 router.get("/pending", getPendingEventsController);
 router.get("/approved", getApprovedEventsController);
 router.get("/ward/:ward", getEventsByWardController);
+router.delete("/:id", deleteEventController);
+
 
 
 export default router;

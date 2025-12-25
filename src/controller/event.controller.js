@@ -48,5 +48,17 @@ export const getEventsByWardController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const deleteEventController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await deleteEvent(id);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+    res.status(200).json({ message: "Event deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 

@@ -11,3 +11,7 @@ export const getEventsByStatus = async (status) => {
 export const getEventsByWard = async (ward) => {
   return await Event.find({ ward }).sort({ createdAt: -1 });
 };
+
+export const deleteEvent = async (id) => {
+  return await Event.findByIdAndDelete(id);
+};
