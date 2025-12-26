@@ -15,3 +15,7 @@ export const getEventsByWard = async (ward) => {
 export const deleteEvent = async (id) => {
   return await Event.findByIdAndDelete(id);
 };
+
+export const updateEvent = async (id, data) => {
+  return await Event.findByIdAndUpdate(id, data, { new: true });
+};

@@ -9,6 +9,7 @@ router.get("/pending", getPendingEventsController);
 router.get("/approved", getApprovedEventsController);
 router.get("/ward/:ward", getEventsByWardController);
 router.delete("/:id", deleteEventController);
+router.put("/:id", upload.single("image"), updateEventController);
 
 
 

@@ -61,4 +61,33 @@ export const deleteEventController = async (req, res) => {
   }
 };
 
+export const updateEventController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { eventName, description, location, startDate, endDate, status, ward, userId } = req.body;
+    const updateData = {
+      eventName,
+      description,
+      location,
+      startDate,
+      endDate,
+      status,
+      ward,
+      userId,
+    };
+
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
+
+    const event = await updateEvent(id, updateData);
+    if (!event) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+    res.status(200).json({ message: "Event updated successfully", event });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
