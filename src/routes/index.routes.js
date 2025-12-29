@@ -9,6 +9,12 @@ import customerRouter from "./Customer.route.js"
 router.use("/admin",adminRouter)
 router.use("/customer",customerRouter)
 
+import newsRouter from "./News.route.js"
+router.use("/news", newsRouter)
+
+import eventRouter from "./Event.route.js"
+router.use("/event", eventRouter)
+
 
 
 
