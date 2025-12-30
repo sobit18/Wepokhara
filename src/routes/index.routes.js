@@ -15,6 +15,9 @@ router.use("/news", newsRouter)
 import eventRouter from "./Event.route.js"
 router.use("/event", eventRouter)
 
+import projectRouter from "./Project.route.js"
+router.use("/project", projectRouter)
+
 
 
 
