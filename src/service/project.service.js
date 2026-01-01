@@ -7,3 +7,7 @@ export const createProject = async (data) => {
 export const getAllProjects = async () => {
   return await Project.find().sort({ createdAt: -1 });
 };
+
+export const deleteProject = async (id) => {
+  return await Project.findByIdAndDelete(id);
+};

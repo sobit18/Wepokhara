@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/", upload.single("image"), createProjectController);
 router.get("/", getAllProjectsController);
+router.delete("/:id", deleteProjectController);
 
 
 export default router;
