@@ -1,5 +1,5 @@
 import express from "express";
-import AdminController from "../controller/Admin.controller.js";
+import AdminController from "../controllers/Admin.controller.js";
 
 import { verifyToken } from "../middleware/verifyToken.middleware.js";
 

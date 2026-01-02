@@ -1,9 +1,8 @@
 import ApiError from "../utils/ApiError.utils.js";
 import ApiResponse from "../utils/apiResponse.utils.js";
 import asyncHandler from "../utils/asyncHandler.utils.js";
-import AdminSevice from "../service/admin.service.js";
+import AdminSevice from "../services/admin.service.js";
 import { options } from "../config/cookie.config.js";
-
 
 class AdminController {
   login = asyncHandler(async (req, res, next) => {
@@ -18,7 +17,7 @@ class AdminController {
     const refreshToken = admin.generateRefreshToken();
 
     res
-      .cookie("authToken", authToken,options) // 1 day
+      .cookie("authToken", authToken, options) // 1 day
       .cookie("refreshToken", refreshToken, {
         ...options,
         maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -31,7 +30,7 @@ class AdminController {
         email: admin.email,
         role: admin.role,
         authToken: authToken,
-      })
+      }),
     );
   });
 
@@ -43,11 +42,14 @@ class AdminController {
       throw new ApiError(400, "Old and new passwords are required");
     }
 
-    const result = await AdminSevice.changePassword(adminId, oldPassword, newPassword);
+    const result = await AdminSevice.changePassword(
+      adminId,
+      oldPassword,
+      newPassword,
+    );
     res.status(200).json(new ApiResponse(200, result.message));
   });
-  
-  
+
   changeEmail = asyncHandler(async (req, res, next) => {
     const { password, newEmail } = req.body;
     const adminId = req.user._id;

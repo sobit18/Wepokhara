@@ -1,5 +1,5 @@
 import express from "express";
-import CustomerController from "../controller/customer.controller.js";
+import CustomerController from "../controllers/customer.controller.js";
 
 import { body, param } from "express-validator";
 import { verifyToken } from "../middleware/verifyToken.middleware.js";
