@@ -18,6 +18,9 @@ router.use("/event", eventRouter)
 import projectRouter from "./Project.route.js"
 router.use("/project", projectRouter)
 
+import emergencyRouter from "./Emergency.route.js"
+router.use("/emergency", emergencyRouter)
+
 
 
 
