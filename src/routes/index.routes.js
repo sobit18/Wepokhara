@@ -21,6 +21,9 @@ router.use("/project", projectRouter)
 import emergencyRouter from "./Emergency.route.js"
 router.use("/emergency", emergencyRouter)
 
+import notificationRouter from "./Notification.route.js"
+router.use("/notification", notificationRouter)
+
 
 
 
