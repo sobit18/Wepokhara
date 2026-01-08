@@ -66,6 +66,32 @@ class NotificationController {
       })
     );
   });
+   updateNotification = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { title, message } = req.body;
+
+    if (!title && !message) {
+      throw new ApiError(400, "At least one field (Title or Message) is required for update");
+    }
+
+    const updatedData = {};
+    if (title) updatedData.title = title;
+    if (message) updatedData.message = message;
+
+    const notification = await Notification.findByIdAndUpdate(
+      id,
+      { $set: updatedData },
+      { new: true, runValidators: true }
+    );
+
+    if (!notification) {
+      throw new ApiError(404, "Notification not found");
+    }
+
+    res.status(200).json(
+      new ApiResponse(200, "Notification updated successfully", notification)
+    );
+  });
 
   
 }
