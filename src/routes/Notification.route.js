@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, authorize(["admin"]), NotificationController.sendGlobalNotification);
 router.patch("/:id", verifyToken, authorize(["admin"]), NotificationController.updateNotification);
+router.delete("/:id", verifyToken, authorize(["admin"]), NotificationController.deleteNotification);
 
 
 export default router;

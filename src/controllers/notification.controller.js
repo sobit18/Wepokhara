@@ -93,6 +93,19 @@ class NotificationController {
     );
   });
 
+   deleteNotification = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    const notification = await Notification.findByIdAndDelete(id);
+
+    if (!notification) {
+      throw new ApiError(404, "Notification not found");
+    }
+
+    res.status(200).json(
+      new ApiResponse(200, "Notification deleted successfully")
+    );
+  });
   
 }
 
