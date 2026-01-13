@@ -24,6 +24,9 @@ router.use("/emergency", emergencyRouter)
 import notificationRouter from "./Notification.route.js"
 router.use("/notification", notificationRouter)
 
+import advertisementRouter from "./Advertisement.route.js"
+router.use("/advertisement", advertisementRouter)
+
 
 
 
