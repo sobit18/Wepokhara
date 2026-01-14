@@ -23,3 +23,14 @@ export const createAdController = async (req, res) => {
 };
 
 
+export const getAllAdsController = async (req, res) => {
+  try {
+    const ads = await getAllAds();
+    res.status(200).json(ads);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+

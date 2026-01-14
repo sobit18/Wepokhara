@@ -5,6 +5,7 @@ import { upload } from "../middleware/multerConfig.js";
 const router = express.Router();
 
 router.post("/", upload.single("photo"), createAdController);
+router.get("/", getAllAdsController);
 
 
 export default router;
