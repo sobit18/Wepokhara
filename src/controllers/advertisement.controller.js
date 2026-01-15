@@ -31,6 +31,18 @@ export const getAllAdsController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const getAdByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const ad = await getAdById(id);
+    if (!ad) {
+      return res.status(404).json({ message: "Advertisement not found" });
+    }
+    res.status(200).json(ad);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 
 

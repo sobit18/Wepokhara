@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.post("/", upload.single("photo"), createAdController);
 router.get("/", getAllAdsController);
+router.get("/:id", getAdByIdController);
 
 
 export default router;
