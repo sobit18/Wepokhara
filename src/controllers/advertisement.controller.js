@@ -44,5 +44,26 @@ export const getAdByIdController = async (req, res) => {
   }
 };
 
+export const updateAdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { startDate, endDate, description, userId } = req.body;
+    const updateData = { startDate, endDate, description, userId };
+
+    if (req.file) {
+      updateData.photo = req.file.path;
+    }
+
+    const updatedAd = await updateAd(id, updateData);
+    if (!updatedAd) {
+      return res.status(404).json({ message: "Advertisement not found" });
+    }
+    res.status(200).json({ message: "Advertisement updated successfully", ad: updatedAd });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 
 
