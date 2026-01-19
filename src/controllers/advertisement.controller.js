@@ -64,6 +64,19 @@ export const updateAdController = async (req, res) => {
   }
 };
 
+export const deleteAdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedAd = await deleteAd(id);
+    if (!deletedAd) {
+      return res.status(404).json({ message: "Advertisement not found" });
+    }
+    res.status(200).json({ message: "Advertisement deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
 
 
