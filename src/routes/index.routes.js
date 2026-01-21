@@ -27,6 +27,9 @@ router.use("/notification", notificationRouter)
 import advertisementRouter from "./Advertisement.route.js"
 router.use("/advertisement", advertisementRouter)
 
+import donationRouter from "./Donation.route.js"
+router.use("/donation", donationRouter)
+
 
 
 
