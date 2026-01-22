@@ -16,10 +16,6 @@ const router = express.Router();
 
 router.post("/", verifyToken, upload.single("photo"), createDonationController);
 router.get("/pending", verifyToken, authorize(["admin"]), getPendingDonationsController);
-router.get("/approved", verifyToken, getApprovedDonationsController);
-router.get("/", verifyToken, authorize(["admin"]), getAllDonationsController);
-router.get("/:id", verifyToken, getDonationByIdController);
-router.patch("/:id/status", verifyToken, authorize(["admin"]), updateDonationStatusController);
-router.delete("/:id", verifyToken, authorize(["admin"]), deleteDonationController);
+
 
 export default router;
