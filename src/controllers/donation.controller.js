@@ -30,4 +30,13 @@ export const getPendingDonationsController = async (req, res) => {
   }
 };
 
+export const getApprovedDonationsController = async (req, res) => {
+  try {
+    const donations = await getDonationsByStatus("approved");
+    res.status(200).json(donations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 
