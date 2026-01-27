@@ -48,4 +48,17 @@ export const getAllDonationsController = async (req, res) => {
   }
 };
 
+export const getDonationByIdController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const donation = await getDonationById(id);
+    if (!donation) {
+      return res.status(404).json({ message: "Donation not found" });
+    }
+    res.status(200).json(donation);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 

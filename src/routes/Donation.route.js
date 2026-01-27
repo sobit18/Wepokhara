@@ -18,6 +18,7 @@ router.post("/", verifyToken, upload.single("photo"), createDonationController);
 router.get("/pending", verifyToken, authorize(["admin"]), getPendingDonationsController);
 router.get("/approved", verifyToken, getApprovedDonationsController);
 router.get("/", verifyToken, authorize(["admin"]), getAllDonationsController);
+router.get("/:id", verifyToken, getDonationByIdController);
 
 
 export default router;

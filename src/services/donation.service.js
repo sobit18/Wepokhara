@@ -11,3 +11,8 @@ export const getDonationsByStatus = async (status) => {
 export const getAllDonations = async () => {
   return await Donation.find().populate("userId", "fullName email").sort({ createdAt: -1 });
 };
+
+
+export const getDonationById = async (id) => {
+  return await Donation.findById(id).populate("userId", "fullName email");
+};
