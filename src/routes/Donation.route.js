@@ -19,6 +19,7 @@ router.get("/pending", verifyToken, authorize(["admin"]), getPendingDonationsCon
 router.get("/approved", verifyToken, getApprovedDonationsController);
 router.get("/", verifyToken, authorize(["admin"]), getAllDonationsController);
 router.get("/:id", verifyToken, getDonationByIdController);
+router.patch("/:id/status", verifyToken, authorize(["admin"]), updateDonationStatusController);
 
 
 export default router;

@@ -60,5 +60,23 @@ export const getDonationByIdController = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+export const updateDonationStatusController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!["pending", "approved"].includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
+    }
+
+    const updatedDonation = await updateDonationStatus(id, status);
+    if (!updatedDonation) {
+      return res.status(404).json({ message: "Donation not found" });
+    }
+    res.status(200).json({ message: `Donation status updated to ${status}`, donation: updatedDonation });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 
