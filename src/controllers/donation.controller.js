@@ -79,4 +79,15 @@ export const updateDonationStatusController = async (req, res) => {
   }
 };
 
-
+export const deleteDonationController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedDonation = await deleteDonation(id);
+    if (!deletedDonation) {
+      return res.status(404).json({ message: "Donation not found" });
+    }
+    res.status(200).json({ message: "Donation deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

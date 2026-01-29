@@ -20,3 +20,7 @@ export const getDonationById = async (id) => {
 export const updateDonationStatus = async (id, status) => {
   return await Donation.findByIdAndUpdate(id, { status }, { new: true });
 };
+
+export const deleteDonation = async (id) => {
+  return await Donation.findByIdAndDelete(id);
+};
