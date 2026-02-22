@@ -1,4 +1,11 @@
-import { createDonation, getAllDonations, getDonationById, updateDonationStatus, deleteDonation, getDonationsByStatus } from "../services/donation.service.js";
+import {
+  createDonation,
+  getAllDonations,
+  getDonationById,
+  updateDonationStatus,
+  deleteDonation,
+  getDonationsByStatus,
+} from "../services/donation.service.js";
 
 export const createDonationController = async (req, res) => {
   try {
@@ -7,7 +14,7 @@ export const createDonationController = async (req, res) => {
     const photo = req.file ? req.file.path : null;
 
     if (!photo) {
-      return res.status(400).json({ message: "Photo (receipt/proof) is required" });
+      return res.status(400).json({ message: "Photo or proof is required" });
     }
 
     const donation = await createDonation({
@@ -15,7 +22,9 @@ export const createDonationController = async (req, res) => {
       amount,
       photo,
     });
-    res.status(201).json({ message: "Donation submitted successfully", donation });
+    res
+      .status(201)
+      .json({ message: "Donation submitted successfully", donation });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -73,7 +82,12 @@ export const updateDonationStatusController = async (req, res) => {
     if (!updatedDonation) {
       return res.status(404).json({ message: "Donation not found" });
     }
-    res.status(200).json({ message: `Donation status updated to ${status}`, donation: updatedDonation });
+    res
+      .status(200)
+      .json({
+        message: `Donation status updated to ${status}`,
+        donation: updatedDonation,
+      });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
